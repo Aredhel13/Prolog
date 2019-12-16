@@ -6,17 +6,17 @@ del_znak(X,Y,Z):-split_string(X,Y,Y,L), atomics_to_string(L,Z).
 union1(X,Y,Z):-split_string(X,"","",L1),split_string(Y,"","",L2),
     append(L1,L2,L),atomics_to_string(L,Z).
 
-Arifmetic(X):-string_length(X,P),P<1,!.
+arifmetic(X):-string_length(X,P),P<1,!.
 
 arifmetic(X):- S="+", sub_string(X,Y,1,_,S),Y1 is Y-1,Y1>=0,!,
-    sub_string(X,Y1,1,_,S1), atom_number(S1,X1), X1>=0,X1=<9,!,
+    sub_string(X,Y1,1,_,S1), elem(S1),!, atom_number(S1,X1),
     Y2 is Y1+2, sub_string(X,Y2,1,_,S2),atom_number(S2,X2),X2>=0,X2=<9,!,
     R is X1+X2, write(X1),write(S),write(X2),write("="),writeln(R),
     sub_string(X,0,Y2,_,Z1), del_znak(Z1,+,Z),sub_string(X,Y2,_,0,Z2),
     union1(Z,Z2,Z3),arifmetic(Z3).
 
 arifmetic(X):- S="-", sub_string(X,Y,1,_,S),Y1 is Y-1,Y1>=0,!,
-    sub_string(X,Y1,1,_,S1),atom_number(S1,X1), X1>=0,X1=<9,!,
+    sub_string(X,Y1,1,_,S1),elem(S1),!, atom_number(S1,X1),
     Y2 is Y1+2, sub_string(X,Y2,1,_,S2),atom_number(S2,X2),X2>=0,X2=<9,!,
     R is X1-X2, write(X1),write(S),write(X2),write("="),writeln(R),
     sub_string(X,0,Y2,_,Z1), del_znak(Z1,-,Z),sub_string(X,Y2,_,0,Z2),
